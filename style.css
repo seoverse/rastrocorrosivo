@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  color: #00ff00;
+  font-family: monospace;
+}
+
+#regresar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #00ff00;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 8px 14px;
+  border: 1px solid #00ff00;
+  transition: background-color 0.3s;
+}
+
+
+
+#regresar:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.info-window {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 260px;
+  padding: 15px;
+  border: 1px solid #00ff00;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  display: none;
+  z-index: 100;
+  font-size: 14px;
+
+
+}
+
+.info-window h3 {
+  margin-top: 0;
+  font-size: 16px;
+  border-bottom: 1px solid #00ff00;
+  padding-bottom: 6px;
+  
+}
+
+
