@@ -19,39 +19,39 @@ scene.add(light);
 
 // Definición de nodos
 const nodesData = [
-  { id: "Salmonella", x: -300, y: 150, z: 300, description: "Salmonella", image: "gifs/salmonella.mp4" },
-  { id: "Salmonella_enterica", x: -100, y: 250, z: 300, description: "Salmonella Enterica", image: "gifs/salmonellaenterica.mp4" },
-  { id: "Shigella", x: 100, y: 150, z: 300, description: "Shigella", image: "gifs/shigella.mp4" },
-  { id: "Vibrio_cholerae", x: 300, y: 100, z: 300, description: "Vibrio cholerae", image: "gifs/vc.mp4" },
-  { id: "Burkholderia", x: 200, y: -150, z: 300, description: "Burkholderia pseudomallei", image: "gifs/bp.mp4" },
-  { id: "Giardia", x: -200, y: -120, z: 300, description: "Giardia", image: "gifs/giardia.mp4" },
+  { id: "Salmonella", x: -300, y: 150, z: 350, description: "Salmonella", image: "gifs/salmonella.mp4" },
+  { id: "Salmonella_enterica", x: -100, y: 250, z: 350, description: "Salmonella Enterica", image: "gifs/salmonellaenterica.mp4" , offsetY: -10},
+  { id: "Shigella", x: 100, y: 150, z: 350, description: "Shigella", image: "gifs/shigella.mp4" },
+  { id: "Vibrio_cholerae", x: 300, y: 100, z: 350, description: "Vibrio cholerae", image: "gifs/vc.mp4" },
+  { id: "Burkholderia", x: 200, y: -150, z: 350, description: "Burkholderia pseudomallei", image: "gifs/bp.mp4" },
+  { id: "Giardia", x: -200, y: -120, z: 350, description: "Giardia", image: "gifs/giardia.mp4" },
   
   // Nodos secundarios 
   { id: "Tracto_intestinal_humano", x: -100, y: 260, z: -200, description: "Tracto intestinal humano", image: "gifs/intestino.mp4",  width: 70, height: 100 },
-  { id: "Heces_infectadas", x: 100, y: 600, z: -400, description: "Heces infectadas", image: "imagenes/heces.mp4" },
-  { id: "Drenaje", x: 200, y: 0, z: -600, description: "Drenaje", image: "gifs/mariscos.mp4" },
-  { id: "Agua_estancada", x: -300, y: -100, z: -800, description: "Agua estancada", image: "gifs/aguaestancada.mp4", width: 90, height: 90, offsetX: 0, offsetY: 26 },
-  { id: "Filtracion_subsuelo", x: 400, y: 200, z: -1000, description: "Filtración al subsuelo", image: "imagenes/filtracion.mp4" },
-  { id: "Acuiferos", x: 500, y: -700, z: -1200, description: "Acuíferos", image: "imagenes/acuiferos.mp4" },
+  { id: "Heces_infectadas", x: 100, y: 600, z: -400, description: "Heces infectadas", image: "gifs/heces.mp4", width: 110, height: 105, offsetX: -10, offsetY: 10 },
+  { id: "Drenaje", x: 200, y: 0, z: -600, description: "Drenaje", image: "gifs/drenaje.mp4", width: 57, height: 50 },
+  { id: "Agua_estancada", x: -300, y: -100, z: -800, description: "Agua estancada", image: "gifs/estancada1.mp4", width: 120, height: 70, offsetX: 0, offsetY: 0 },
+  { id: "Filtracion_subsuelo", x: 400, y: 200, z: -1000, description: "Filtración al subsuelo", image: "gifs/subsuelo1.mp4", width: 90, height: 90, offsetX: 3, offsetY: 10  },
+  { id: "Acuiferos", x: 500, y: -700, z: -1200, description: "Acuíferos", image: "gifs/acuiferos.mp4", width: 110, height: 110 },
   { id: "Suministro", x: 600, y: -250, z: -1400, description: "Inflitración del parásito en el suministro de agua de la Cuenca del Valle de México.", image: "gifs/suministro.mp4",  
   width: 190, height: 70, offsetX: 43, offsetY: -10, },
-  { id: "Ingesta", x: 900, y: -300, z: -1600, description: "Ingesta", image: "imagenes/ingesta.mp4" },
+  { id: "Ingesta", x: 900, y: -300, z: -1600, description: "Ingesta", image: "gifs/ingesta.mp4", width: 50, height: 50 },
   { id: "Cultivos_contaminados", x: 200, y: -250, z: -1200, description: "Cultivos contaminados", image: "gifs/cultivos.mp4",width: 85, height:90 },
-  { id: "Consumo", x: 300, y: -300, z: -1400, description: "Consumo de alimentos contaminados", image: "imagenes/consumo.mp4" },
-  { id: "Zonas_sin_drenaje", x: 150, y: -50, z: -600, description: "Zonas sin drenaje", image: "imagenes/sin_drenaje.mp4" },
-  { id: "Fosas_negras", x: 250, y: -180, z: -800, description: "Fosas negras", image: "imagenes/fosas_negras.mp4" },
-  { id: "Pozos", x: 950, y: -600, z: -1000, description: "Pozos de extracción de agua", image: "imagenes/pozos.mp4" },
-  { id: "Criadero_mosquitos", x: -300, y: -200, z: -600, description: "Criadero de mosquitos", image: "imagenes/mosquitos.mp4" },
-  { id: "Contacto_directo", x: -400, y: -300, z: -800, description: "Contacto directo", image: "imagenes/contacto.mp4" },
+  { id: "Consumo", x: 300, y: -300, z: -1400, description: "Consumo de alimentos contaminados", image: "gifs/consumo.mp4", width: 80, height: 65, offsetX: 0, offsetY: 16  },
+  { id: "Zonas_sin_drenaje", x: 150, y: -50, z: -600, description: "Zonas sin drenaje", image: "gifs/sindrenaje.mp4" },
+  { id: "Fosas_negras", x: 250, y: -180, z: -800, description: "Fosas negras", image: "gifs/fosa.mp4" },
+  { id: "Pozos", x: 950, y: -600, z: -1000, description: "Pozos de extracción de agua", image: "gifs/pozo.mp4", width:70, height: 55 },
+  { id: "Criadero_mosquitos", x: -300, y: -200, z: -600, description: "Criadero de mosquitos", image: "gifs/mosquito.mp4", offsetX: 10, offsetY: 20, width: 80, height: 75 },
+  { id: "Contacto_directo", x: -400, y: -300, z: -800, description: "Contacto directo", image: "gifs/contacto.mp4", width: 90, height: 70, offsetX: -10, offsetY: -10 },
   { id: "Rios_lagos", x: -830, y: -200, z: -800, description: "Ríos, océanos y lagos" },
-  { id: "Agua_riego", x: 0, y: -400, z: -1000, description: "Agua de riego para cultivos", image: "imagenes/riego.mp4" },
-  { id: "Tracto_intestinal_animal", x: -300, y: -40, z: -100, description: "tracto animal", image: "imagenes/riego.mp4" },
-  { id: "Zonas_de_pastoreo", x: 100, y: -270, z: -120, description: "heces infectadas en zonas de pastoreo", image: "imagenes/riego.mp4" },
-  { id: "Agua_residual_sin_tratamiento", x: 900, y: 400, z: -240, description: "Agua residual sin tratamiento", image: "imagenes/riego.mp4" },
-  { id: "Agua_residual_con_tratamiento_incorrecto", x: 310, y: -57, z: -290, description: "Agua residual con tratamiento incorrecto", image: "imagenes/riego.mp4" },
-  { id: "Contagio", x: 930, y: -88, z: -760, description: "contagio", image: "imagenes/riego.mp4" },
-  { id: "Suelo", x: 830, y: -880, z: -360, description: "contagio", image: "imagenes/riego.mp4" },
-  { id: "cuerpo_agua", x: 230, y: -290, z: -60, description: "cuerpos de agua contaminada", image: "imagenes/riego.mp4" },
+  { id: "Agua_riego", x: 0, y: -400, z: -1000, description: "Agua de riego para cultivos", image: "gifs/riego.mp4" },
+  { id: "Tracto_intestinal_animal", x: -300, y: -40, z: -100, description: "tracto animal", image: "gifs/tractoanimal.mp4",  width: 90, height: 50 },
+  { id: "Zonas_de_pastoreo", x: 100, y: -270, z: -120, description: "heces infectadas en zonas de pastoreo", image: "gifs/pastoreo.mp4", width: 70, height: 40 },
+  { id: "Agua_residual_sin_tratamiento", x: 600, y: 400, z: -240, description: "Agua residual sin tratamiento", image: "gifs/sintratamiento.mp4", width: 100, height: 100 },
+  { id: "Agua_residual_con_tratamiento_incorrecto", x: 310, y: -57, z: -290, description: "Agua residual con tratamiento incorrecto", image: "gifs/tratamiento.mp4", width: 100, height: 90  },
+  { id: "Contagio", x: 930, y: -88, z: -760, description: "contagio", image: "gifs/contagio.mp4", width: 50, height: 50 },
+  { id: "Suelo", x: 830, y: -680, z: -360, description: "contagio", image: "gifs/suelo.mp4" },
+  { id: "cuerpo_agua", x: 230, y: -290, z: -60, description: "cuerpos de agua contaminada", image: "gifs/cuerpoagua.mp4",  width: 100, height: 60 },
   { id: "Mariscos", x: -230, y: -580, z: -180, description: "marisco contaminado", image: "gifs/pescado.mp4", width: 90, height: 90 },
  
 
@@ -329,8 +329,14 @@ nodesData.forEach(data => {
   // CONTORNO (SE AÑADE SIEMPRE)
   const outlineGeometry = new THREE.PlaneGeometry(50, 50);
   const outlineEdges = new THREE.EdgesGeometry(outlineGeometry);
-  const outlineMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+  const outlineMaterial = new THREE.LineBasicMaterial({
+    color: 0x00ff00,
+    transparent: true,
+    opacity: 1
+  });
+  
   const outline = new THREE.LineSegments(outlineEdges, outlineMaterial);
+  
   group.add(outline);
 
   group.position.set(data.x, data.y, data.z);
@@ -346,7 +352,14 @@ connections.forEach(([from, to]) => {
   if (nodeA && nodeB) {
     const points = [nodeA.position.clone(), nodeB.position.clone()];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x00ff00 }));
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x00ff00,
+      transparent: true,
+      opacity: 1
+    });
+    
+    const line = new THREE.Line(geometry, lineMaterial);
+    
     scene.add(line);
     lines.push(line);
   }
@@ -395,9 +408,33 @@ function resetView() {
   document.getElementById('infoWindow').style.display = 'none';
 }
 
+
+
 function animate() {
   requestAnimationFrame(animate);
-  if (targetPosition) camera.position.lerp(targetPosition, moveSpeed);
+
+  flickerFrameCounter++;
+  if (flickerFrameCounter >= flickerFrameDelay) {
+    flickerFrameCounter = 0;
+
+    lines.forEach(line => {
+      const flicker = Math.random() < 0.3; // Probabilidad de estar encendida
+      line.material.opacity = flicker ? 1 : 0;
+      line.material.needsUpdate = true;
+    });
+  }
+
+  if (targetPosition) {
+    camera.position.lerp(targetPosition, moveSpeed);
+  }
+
   renderer.render(scene, camera);
 }
+
+
+let flickerIndex = 0;
+let flickerFrameCounter = 0;
+const flickerFrameDelay = 6; // Aumenta este número para hacerlo más lento
+
+
 animate();
