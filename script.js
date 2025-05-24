@@ -2,6 +2,7 @@ let scene, camera, renderer;
 let nodes = [];
 let lines = [];
 let targetPosition = null;
+let targetControlsTarget = null; // Add this new variable
 let moveSpeed = 0.05;
 
 // Crear escena
@@ -11,6 +12,15 @@ camera.position.z = 800;
 renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// Controls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.25;
+controls.enableZoom = true;
+controls.enablePan = true;
+controls.enableRotate = true;
+controls.update()
 
 // Luz
 const light = new THREE.PointLight(0x00ff00, 2, 1000);
@@ -53,18 +63,11 @@ const nodesData = [
   { id: "Suelo", x: 830, y: -680, z: -360, description: "Suelo contaminado por el patógeno.", image: "gifs/suelo.mp4" },
   { id: "cuerpo_agua", x: 230, y: -290, z: -60, description: "Cuerpos de agua contaminada por el patógeno.", image: "gifs/cuerpoagua.mp4",  width: 100, height: 60 },
   { id: "Mariscos", x: -230, y: -580, z: -180, description: "Animales marinoscontagiados que solemos consumir como mariscos.", image: "gifs/pescado.mp4", width: 90, height: 90 },
- 
-
-  
-  
-
 ];
 
 const connections = [
-
   //ruta de salmonella//
   ["Salmonella", "Tracto_intestinal_humano"],
-
   ["Tracto_intestinal_humano", "Heces_infectadas"],
   ["Heces_infectadas", "Drenaje"],
   ["Heces_infectadas", "Zonas_sin_drenaje"],
@@ -73,179 +76,140 @@ const connections = [
   ["Rios_lagos", "Contacto_directo"],
   ["Contacto_directo", "Contagio"],
   ["Contagio", "Tracto_intestinal_humano"],
-
   ["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
   ["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
   ["Agua_riego", "Cultivos_contaminados"],
   ["Cultivos_contaminados", "Consumo"],
   ["Consumo", "Contagio"],
-
   ["Zonas_sin_drenaje", "Agua_estancada"],
   ["Agua_estancada", "Filtracion_subsuelo"],
   ["Filtracion_subsuelo", "Acuiferos"],
   ["Acuiferos", "Suministro"],
   ["Suministro", "Ingesta"],
   ["Ingesta", "Contagio"],
-
   ["Filtracion_subsuelo", "Pozos"],
   ["Pozos", "Ingesta"],
+  ["Zonas_sin_drenaje", "Fosas_negras"],
+  ["Fosas_negras", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
+  ["Salmonella", "Tracto_intestinal_animal"],
+  ["Tracto_intestinal_animal", "Zonas_de_pastoreo"],
+  ["Zonas_de_pastoreo", "Agua_riego"],
 
+  //ruta salmonella enterica//
+  ["Salmonella_enterica", "Tracto_intestinal_humano"],
+  ["Tracto_intestinal_humano", "Heces_infectadas"],
+  ["Heces_infectadas", "Drenaje"],
+  ["Heces_infectadas", "Zonas_sin_drenaje"],
+  ["Drenaje", "Agua_residual_sin_tratamiento"],
+  ["Agua_residual_sin_tratamiento", "Rios_lagos"],
+  ["Rios_lagos", "Contacto_directo"],
+  ["Contacto_directo", "Contagio"],
+  ["Contagio", "Tracto_intestinal_humano"],
+  ["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
+  ["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
+  ["Agua_riego", "Cultivos_contaminados"],
+  ["Cultivos_contaminados", "Consumo"],
+  ["Consumo", "Contagio"],
+  ["Zonas_sin_drenaje", "Agua_estancada"],
+  ["Agua_estancada", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
+  ["Ingesta", "Contagio"],
+  ["Filtracion_subsuelo", "Pozos"],
+  ["Pozos", "Ingesta"],
+  ["Zonas_sin_drenaje", "Fosas_negras"],
+  ["Fosas_negras", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
+  ["Salmonella_enterica", "Tracto_intestinal_animal"],
+  ["Tracto_intestinal_animal", "Zonas_de_pastoreo"],
+  ["Zonas_de_pastoreo", "Agua_riego"],
+  
+  //ruta shigella// 
+  ["Shigella", "Tracto_intestinal_humano"],
+  ["Tracto_intestinal_humano", "Heces_infectadas"],
+  ["Heces_infectadas", "Drenaje"],
+  ["Heces_infectadas", "Zonas_sin_drenaje"],
+  ["Drenaje", "Agua_residual_sin_tratamiento"],
+  ["Agua_residual_sin_tratamiento", "Rios_lagos"],
+  ["Rios_lagos", "Contacto_directo"],
+  ["Contacto_directo", "Contagio"],
+  ["Contagio", "Tracto_intestinal_humano"],
+  ["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
+  ["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
+  ["Agua_riego", "Cultivos_contaminados"],
+  ["Cultivos_contaminados", "Consumo"],
+  ["Consumo", "Contagio"],
+  ["Zonas_sin_drenaje", "Agua_estancada"],
+  ["Agua_estancada", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
+  ["Ingesta", "Contagio"],
+  ["Filtracion_subsuelo", "Pozos"],
+  ["Pozos", "Ingesta"],
   ["Zonas_sin_drenaje", "Fosas_negras"],
   ["Fosas_negras", "Filtracion_subsuelo"],
   ["Filtracion_subsuelo", "Acuiferos"],
   ["Acuiferos", "Suministro"],
   ["Suministro", "Ingesta"],
 
-  ["Salmonella", "Tracto_intestinal_animal"],
-  ["Tracto_intestinal_animal", "Zonas_de_pastoreo"],
-  ["Zonas_de_pastoreo", "Agua_riego"],
-  
-
-//ruta salmonella enterica//
-["Salmonella_enterica", "Tracto_intestinal_humano"],
-
-["Tracto_intestinal_humano", "Heces_infectadas"],
-["Heces_infectadas", "Drenaje"],
-["Heces_infectadas", "Zonas_sin_drenaje"],
-["Drenaje", "Agua_residual_sin_tratamiento"],
-["Agua_residual_sin_tratamiento", "Rios_lagos"],
-["Rios_lagos", "Contacto_directo"],
-["Contacto_directo", "Contagio"],
-["Contagio", "Tracto_intestinal_humano"],
-
-["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
-["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
-["Agua_riego", "Cultivos_contaminados"],
-["Cultivos_contaminados", "Consumo"],
-["Consumo", "Contagio"],
-
-["Zonas_sin_drenaje", "Agua_estancada"],
-["Agua_estancada", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
-["Ingesta", "Contagio"],
-
-["Filtracion_subsuelo", "Pozos"],
-["Pozos", "Ingesta"],
-
-["Zonas_sin_drenaje", "Fosas_negras"],
-["Fosas_negras", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
-
-["Salmonella_enterica", "Tracto_intestinal_animal"],
-["Tracto_intestinal_animal", "Zonas_de_pastoreo"],
-["Zonas_de_pastoreo", "Agua_riego"],
-  
- //ruta shigella// 
-
- ["Shigella", "Tracto_intestinal_humano"],
-
-["Tracto_intestinal_humano", "Heces_infectadas"],
-["Heces_infectadas", "Drenaje"],
-["Heces_infectadas", "Zonas_sin_drenaje"],
-["Drenaje", "Agua_residual_sin_tratamiento"],
-["Agua_residual_sin_tratamiento", "Rios_lagos"],
-["Rios_lagos", "Contacto_directo"],
-["Contacto_directo", "Contagio"],
-["Contagio", "Tracto_intestinal_humano"],
-
-["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
-["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
-["Agua_riego", "Cultivos_contaminados"],
-["Cultivos_contaminados", "Consumo"],
-["Consumo", "Contagio"],
-
-["Zonas_sin_drenaje", "Agua_estancada"],
-["Agua_estancada", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
-["Ingesta", "Contagio"],
-
-["Filtracion_subsuelo", "Pozos"],
-["Pozos", "Ingesta"],
-
-["Zonas_sin_drenaje", "Fosas_negras"],
-["Fosas_negras", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
-
-//ruta giarda//
-
-["Giardia", "Tracto_intestinal_humano"],
-
-["Tracto_intestinal_humano", "Heces_infectadas"],
-["Heces_infectadas", "Drenaje"],
-["Heces_infectadas", "Zonas_sin_drenaje"],
-["Drenaje", "Agua_residual_sin_tratamiento"],
-["Agua_residual_sin_tratamiento", "Rios_lagos"],
-["Rios_lagos", "Contacto_directo"],
-["Contacto_directo", "Contagio"],
-["Contagio", "Tracto_intestinal_humano"],
-
-["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
-["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
-["Agua_riego", "Cultivos_contaminados"],
-["Cultivos_contaminados", "Consumo"],
-["Consumo", "Contagio"],
-
-["Zonas_sin_drenaje", "Agua_estancada"],
-["Agua_estancada", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
-["Ingesta", "Contagio"],
-
-["Filtracion_subsuelo", "Pozos"],
-["Pozos", "Ingesta"],
-
-["Zonas_sin_drenaje", "Fosas_negras"],
-["Fosas_negras", "Filtracion_subsuelo"],
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Ingesta"],
+  //ruta giarda//
+  ["Giardia", "Tracto_intestinal_humano"],
+  ["Tracto_intestinal_humano", "Heces_infectadas"],
+  ["Heces_infectadas", "Drenaje"],
+  ["Heces_infectadas", "Zonas_sin_drenaje"],
+  ["Drenaje", "Agua_residual_sin_tratamiento"],
+  ["Agua_residual_sin_tratamiento", "Rios_lagos"],
+  ["Rios_lagos", "Contacto_directo"],
+  ["Contacto_directo", "Contagio"],
+  ["Contagio", "Tracto_intestinal_humano"],
+  ["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
+  ["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
+  ["Agua_riego", "Cultivos_contaminados"],
+  ["Cultivos_contaminados", "Consumo"],
+  ["Consumo", "Contagio"],
+  ["Zonas_sin_drenaje", "Agua_estancada"],
+  ["Agua_estancada", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
+  ["Ingesta", "Contagio"],
+  ["Filtracion_subsuelo", "Pozos"],
+  ["Pozos", "Ingesta"],
+  ["Zonas_sin_drenaje", "Fosas_negras"],
+  ["Fosas_negras", "Filtracion_subsuelo"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Ingesta"],
  
-//ruta bp//
+  //ruta bp//
+  ["Burkholderia", "Suelo"],
+  ["Suelo", "Drenaje"],
+  ["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
+  ["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
+  ["Agua_riego", "Cultivos_contaminados"],
+  ["Cultivos_contaminados", "Consumo"],
+  ["Consumo", "Contagio"],
+  ["Burkholderia", "Agua_estancada"],
+  ["Agua_estancada", "Filtracion_subsuelo"],
+  ["Agua_estancada", "Pozos"],
+  ["Filtracion_subsuelo", "Acuiferos"],
+  ["Acuiferos", "Suministro"],
+  ["Suministro", "Agua_riego"],
+  ["Agua_estancada","Criadero_mosquitos"],
 
-["Burkholderia", "Suelo"],
-["Suelo", "Drenaje"],
-["Drenaje", "Agua_residual_con_tratamiento_incorrecto"],
-["Agua_residual_con_tratamiento_incorrecto","Agua_riego"],
-["Agua_riego", "Cultivos_contaminados"],
-["Cultivos_contaminados", "Consumo"],
-["Consumo", "Contagio"],
-
-["Burkholderia", "Agua_estancada"],
-["Agua_estancada", "Filtracion_subsuelo"],
-["Agua_estancada", "Pozos"],
-
-["Filtracion_subsuelo", "Acuiferos"],
-["Acuiferos", "Suministro"],
-["Suministro", "Agua_riego"],
-
-["Agua_estancada","Criadero_mosquitos"],
-
-//ruta Vibrio cholerae
-["Vibrio_cholerae", "cuerpo_agua"],
-["cuerpo_agua", "Filtracion_subsuelo"],
-["cuerpo_agua", "Contacto_directo"],
-["cuerpo_agua", "Mariscos"],
-["Mariscos", "Consumo"],
-
-
-
-
-
-
-
-  
-  
-  
-  
+  //ruta Vibrio cholerae
+  ["Vibrio_cholerae", "cuerpo_agua"],
+  ["cuerpo_agua", "Filtracion_subsuelo"],
+  ["cuerpo_agua", "Contacto_directo"],
+  ["cuerpo_agua", "Mariscos"],
+  ["Mariscos", "Consumo"],
 ];
 
 nodesData.forEach(data => {
@@ -301,7 +265,6 @@ nodesData.forEach(data => {
     group.add(vid3);
   } else {
     // NODOS NORMALES CON UNA SOLA IMAGEN O VIDEO
-
     let texture;
     if (data.image.endsWith('.mp4')) {
       const video = document.createElement('video');
@@ -345,7 +308,6 @@ nodesData.forEach(data => {
   nodes.push(group);
 });
 
-
 connections.forEach(([from, to]) => {
   const nodeA = nodes.find(n => n.userData.id === from);
   const nodeB = nodes.find(n => n.userData.id === to);
@@ -385,6 +347,10 @@ function onClick(event) {
       selected.position.y,
       selected.position.z + 300
     );
+    
+    // Establece el objetivo de los controles para animar hacia el objeto seleccionado
+    targetControlsTarget = selected.position.clone();
+    
     toggleInfo(selected.userData);
   }
 }
@@ -404,11 +370,11 @@ function toggleInfo(data) {
 
 function resetView() {
   camera.position.set(0, 0, 800);
+  controls.target.set(0, 0, 0); // reinicia el objetivo de los controles al origen
   targetPosition = null;
+  targetControlsTarget = null;
   document.getElementById('infoWindow').style.display = 'none';
 }
-
-
 
 function animate() {
   requestAnimationFrame(animate);
@@ -424,17 +390,25 @@ function animate() {
     });
   }
 
-  if (targetPosition) {
+  // Animate camera position and controls target together
+  if (targetPosition && targetControlsTarget) {
     camera.position.lerp(targetPosition, moveSpeed);
+    controls.target.lerp(targetControlsTarget, moveSpeed);
+    
+    // Check if animation is complete (close enough to target)
+    if (camera.position.distanceTo(targetPosition) < 1 && 
+        controls.target.distanceTo(targetControlsTarget) < 1) {
+      targetPosition = null;
+      targetControlsTarget = null;
+    }
   }
 
+  controls.update();
   renderer.render(scene, camera);
 }
-
 
 let flickerIndex = 0;
 let flickerFrameCounter = 0;
 const flickerFrameDelay = 6; // Aumenta este número para hacerlo más lento
-
 
 animate();
