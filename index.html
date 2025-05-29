@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ratro Corrosivo</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rastro Corrosivo</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Importmap para usar Three.js como módulo -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+  </script>
 </head>
 <body>
-
-
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <defs>
+      <filter id="dissolve-filter" x="-200%" y="-200%" width="500%" height="500%" color-interpolation-filters="sRGB" overflow="visible">
+        <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="1" result="bigNoise" />
+        <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
+          <feFuncR type="linear" slope="5" intercept="-2" />
+          <feFuncG type="linear" slope="5" intercept="-2" />
+        </feComponentTransfer>
+        <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="1" result="fineNoise" />
+        <feMerge result="mergedNoise">
+          <feMergeNode in="bigNoiseAdjusted" />
+          <feMergeNode in="fineNoise" />
+        </feMerge>
+        <feDisplacementMap in="SourceGraphic" in2="mergedNoise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+  
+  <img id="logo-completo" src="fotos/logo.png" alt="Logo" style="position:absolute; top:20px; left:20px; height:60px; filter:url(#dissolve-filter); -webkit-filter:url(#dissolve-filter); z-index:999;">
+  
+  <div id="texto">
+    <p>Archivo visual del rastro patogénico en el agua que bebemos.
+      Navega esta red viva al dar click en sus componentes y sus conexiones, comenzando por el patógeno de tu elección (componentes numerados).
+      Explora utilizando el trackpad para hacer zoom in, zoom out y moverte a través de la red y todos su ángulos.
+      Da click sobre las imágenes para leer su descripción. 
+    </p>
+  </div>
+  
   <div id="regresar">Regresar</div>
   <div id="infoWindow" class="info-window">
     <h3 id="infoTitle"></h3>
     <p id="infoDescription"></p>
   </div>
 
-
-  <script src="three.min.js"></script>
-
-
-  <script src="script.js"></script>
   
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
-

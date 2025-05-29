@@ -30,7 +30,7 @@ body {
   position: absolute;
   bottom: 20px;
   left: 20px;
-  width: 260px;
+  width: 390px;
   padding: 15px;
   border: 1px solid #00ff00;
   background-color: rgba(0, 0, 0, 0.8);
@@ -49,5 +49,47 @@ body {
   padding-bottom: 6px;
   
 }
+
+#logo-container {
+  position: absolute;
+  top: 50px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+}
+
+#logo-container img {
+  height: 90px; /* o ajusta según tamaño real */
+  transition: opacity 0.5s ease;
+}
+
+#logo-completo {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  will-change: transform, opacity;
+ 
+    width: 200px;
+    height: auto;
+    top: 70px;
+    left: 80px;
+    
+  
+}
+
+
+#texto {
+  position: absolute;
+  top: 100px; /* ajusta según el tamaño del logo */
+  left: 20px;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  z-index: 999;
+  max-width: 260px;
+  line-height: 1.4;
+}
+
+
+
 
 
