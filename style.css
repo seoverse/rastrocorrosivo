@@ -1,9 +1,16 @@
+@font-face {
+  font-family: 'Corrosiva Regular';
+  src: url('font/Corrosiva-Regular.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   overflow: hidden;
   background-color: black;
   color: #00ff00;
-  font-family: monospace;
+  font-family: "Corrosiva Regular", sans-serif;
+  
+  
 }
 
 #regresar {
@@ -82,14 +89,16 @@ body {
   top: 100px; /* ajusta según el tamaño del logo */
   left: 20px;
   color: #ffffff;
-  font-size: 14px;
-  font-family: 'Arial', sans-serif;
+  font-size: 15px;
+  font-family: "Corrosiva Regular", sans-serif;
   z-index: 999;
-  max-width: 260px;
+  max-width: 320px;
   line-height: 1.4;
 }
 
 
-
+.subtitulo {
+  font-size: 18px;
+}
 
 

@@ -433,7 +433,7 @@ renderer.domElement.addEventListener('click', (event) => {
     const targetNode = nodes.find(n => n.userData.id === clickedLine.userData.to);
     if (targetNode) {
       targetPosition = targetNode.position.clone().add(new THREE.Vector3(0, 0, 300));
-      cameraTarget.copy(targetNode.position); // 👈 ESTA LÍNEA es la clave
+      cameraTarget.copy(targetNode.position); // ESTA LÍNEA es la clave
     }
   }
 });
@@ -493,7 +493,7 @@ function onClick(event) {
     targetPosition = new THREE.Vector3(
       selected.position.x,
       selected.position.y,
-      selected.position.z + 300
+      selected.position.z + 180
     );
     cameraTarget.copy(selected.position); // para que la cámara mire hacia el nodo
     
